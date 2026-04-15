@@ -32,16 +32,18 @@
   <meta name="twitter:description" content="西宮・夙川エリアの総合買取専門店。査定無料・年中無休 10:00〜19:00。">
   <meta name="twitter:image" content="https://shukugawa-r2.elmship.com/assets/images/ogp.jpg">
 
-  <!-- 構造化データ (JSON-LD) -->
+  <!-- 構造化データ (JSON-LD) — Store -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Store",
     "name": "買取大吉 西宮夙川2号線店",
-    "description": "西宮・夙川エリアの総合買取専門店。貴金属・ブランド品・時計・宝石・古銭・お酒など幅広く高価買取。",
+    "description": "西宮・夙川エリアの総合買取専門店。貴金属・ブランド品・時計・宝石・古銭・お酒など幅広く高価買取。査定無料・年中無休。",
     "url": "https://shukugawa-r2.elmship.com/",
     "telephone": "0798-343-888",
     "email": "info@elmship.com",
+    "image": "https://shukugawa-r2.elmship.com/assets/images/ogp.jpg",
+    "logo": "https://shukugawa-r2.elmship.com/assets/images/logo-daikichi.png",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "弓場町8-29",
@@ -61,14 +63,119 @@
       "opens": "10:00",
       "closes": "19:00"
     },
-    "image": "https://shukugawa-r2.elmship.com/assets/images/ogp.jpg",
     "priceRange": "$$",
     "currenciesAccepted": "JPY",
     "paymentAccepted": "Cash",
-    "areaServed": {
-      "@type": "City",
-      "name": "西宮市"
-    }
+    "areaServed": [
+      { "@type": "City", "name": "西宮市" },
+      { "@type": "City", "name": "芦屋市" },
+      { "@type": "City", "name": "神戸市東灘区" },
+      { "@type": "City", "name": "尼崎市" }
+    ],
+    "parentOrganization": {
+      "@type": "Organization",
+      "name": "株式会社エルムシップ",
+      "url": "https://www.elmship.com/"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "買取品目",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "金・貴金属の買取" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "宝石・ジュエリーの買取" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ブランド時計の買取" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ブランドバッグ・財布の買取" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "お酒の買取" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "古銭・記念コインの買取" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "カメラ・家電の買取" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "切手・金券・テレカの買取" } }
+      ]
+    },
+    "additionalProperty": [
+      { "@type": "PropertyValue", "name": "査定料", "value": "無料" },
+      { "@type": "PropertyValue", "name": "出張買取", "value": "対応" },
+      { "@type": "PropertyValue", "name": "即日現金払い", "value": "対応" }
+    ]
+  }
+  </script>
+
+  <!-- 構造化データ (JSON-LD) — FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "査定だけでもいいですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "もちろんです。査定は完全無料で、お品物をお持ちいただくだけでOKです。金額を聞いてからご検討いただけますので、お気軽にご来店ください。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "壊れたアクセサリーでも買い取ってもらえますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい、壊れたアクセサリーや片方だけのピアスなども買取可能です。金やプラチナなどの素材自体に価値がありますので、まずはお持ちください。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "査定にはどのくらい時間がかかりますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "お品物1点あたり約5〜15分程度です。点数が多い場合はお時間をいただくこともございますが、できる限りスピーディに対応いたします。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "予約なしでも大丈夫ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい、予約なしでもご来店いただけます。ただし、混雑時はお待ちいただく場合がございますので、お電話でのご予約も承っております。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "出張買取はどのエリアまで対応していますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "西宮市を中心に、芦屋市・神戸市東灘区・尼崎市など近隣エリアに対応しております。詳しくはお電話にてお問い合わせください。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "買取金額に納得できなかった場合はキャンセルできますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい、キャンセル料は一切かかりません。査定額にご納得いただけない場合は、そのままお品物をお持ち帰りいただけます。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- 構造化データ (JSON-LD) — BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "株式会社エルムシップ",
+        "item": "https://www.elmship.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "買取大吉 西宮夙川2号線店",
+        "item": "https://shukugawa-r2.elmship.com/"
+      }
+    ]
   }
   </script>
 
@@ -102,6 +209,8 @@
       </button>
     </div>
   </header>
+
+  <main>
 
   <!-- HERO -->
   <section class="hero" id="hero">
@@ -604,6 +713,8 @@
   </section>
 
   <!-- FOOTER -->
+  </main>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
