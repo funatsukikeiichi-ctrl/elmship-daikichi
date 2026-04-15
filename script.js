@@ -67,17 +67,104 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Scroll animations
-  const observer = new IntersectionObserver((entries) => {
+  // --- Hero title: character-by-character fade-in ---
+  const heroTitle = document.querySelector('.hero-title');
+  if (heroTitle) {
+    const html = heroTitle.innerHTML;
+    // Split text while preserving <br> tags
+    let charIndex = 0;
+    const newHtml = html.replace(/(<br\s*\/?>)|([^<])/g, (match, br, char) => {
+      if (br) return br;
+      const span = `<span class="char" style="transition-delay: ${0.8 + charIndex * 0.05}s">${char}</span>`;
+      charIndex++;
+      return span;
+    });
+    heroTitle.innerHTML = newHtml;
+
+    // Trigger after short delay
+    setTimeout(() => {
+      heroTitle.querySelectorAll('.char').forEach(c => c.classList.add('visible'));
+    }, 300);
+  }
+
+  // --- Scroll animations with stagger for individual elements ---
+  const itemObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        itemObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
+  // Section-level fade-in
   document.querySelectorAll('.section').forEach(el => {
     el.classList.add('fade-in');
-    observer.observe(el);
+    itemObserver.observe(el);
   });
+
+  // Individual card stagger (items, flow steps, service chips)
+  const staggerTargets = document.querySelectorAll(
+    '.item-card-img, .flow-step, .feature, .service-chip, .faq-item, .about-grid > *, .required-card, .greeting-content > *'
+  );
+  staggerTargets.forEach((el, i) => {
+    el.classList.add('fade-in-item');
+    // Stagger within same parent
+    const parent = el.parentElement;
+    if (parent) {
+      const siblings = Array.from(parent.children).filter(c => c.classList.contains('fade-in-item'));
+      const idx = siblings.indexOf(el);
+      el.style.transitionDelay = `${idx * 0.08}s`;
+    }
+    itemObserver.observe(el);
+  });
+
+  // About image: slide from left, text: slide from right
+  const aboutImage = document.querySelector('.about-image');
+  const aboutText = document.querySelector('.about-text');
+  if (aboutImage) { aboutImage.classList.add('fade-in-left'); itemObserver.observe(aboutImage); }
+  if (aboutText) { aboutText.classList.add('fade-in-right'); itemObserver.observe(aboutText); }
+
+  // Greeting image + text
+  const greetingImg = document.querySelector('.greeting-image');
+  const greetingText = document.querySelector('.greeting-text');
+  if (greetingImg) { greetingImg.classList.add('fade-in-scale'); itemObserver.observe(greetingImg); }
+  if (greetingText) { greetingText.classList.add('fade-in-right'); itemObserver.observe(greetingText); }
+
+  // Section titles
+  document.querySelectorAll('.section-title').forEach(el => {
+    el.classList.add('fade-in-item');
+    itemObserver.observe(el);
+  });
+
+  // --- 3D Tilt on item cards (desktop only) ---
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.item-card-img').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / centerY * -5;
+        const rotateY = (x - centerX) / centerX * 5;
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  // --- Smooth scroll ---
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
 });
