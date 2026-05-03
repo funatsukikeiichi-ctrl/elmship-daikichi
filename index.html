@@ -692,15 +692,19 @@
           <p class="contact-note"><a href="https://reserve-daikichi.elmship.com/reserve?store=nishinomiya-shukugawa2">来店予約フォームはこちら</a></p>
         </div>
         <div class="contact-form-block">
-          <h3>メールでのお問い合わせ</h3>
+          <h3>お問い合わせフォーム</h3>
           <form class="contact-form" id="contactForm">
             <div class="form-group">
-              <label for="name">お名前 <span class="required">必須</span></label>
-              <input type="text" id="name" name="name" required placeholder="山田 太郎">
+              <label for="lastName">姓 <span class="required">必須</span></label>
+              <input type="text" id="lastName" name="lastName" required placeholder="山田">
+            </div>
+            <div class="form-group">
+              <label for="firstName">名 <span class="required">必須</span></label>
+              <input type="text" id="firstName" name="firstName" required placeholder="太郎">
             </div>
             <div class="form-group">
               <label for="phone">お電話番号 <span class="required">必須</span></label>
-              <input type="tel" id="phone" name="phone" required placeholder="090-1234-5678">
+              <input type="tel" id="phone" name="phone" required placeholder="09012345678" inputmode="numeric">
             </div>
             <div class="form-group">
               <label for="email">メールアドレス</label>
@@ -710,6 +714,14 @@
               <label for="message">ご相談内容</label>
               <textarea id="message" name="message" rows="4" placeholder="査定をご希望のお品物やご質問をご記入ください。"></textarea>
             </div>
+            <p class="contact-note">
+              送信前に
+              <a href="https://reserve-daikichi.elmship.com/privacy?store=nishinomiya-shukugawa2" target="_blank" rel="noopener noreferrer">
+                個人情報の取り扱い
+              </a>
+              をご確認ください。
+            </p>
+            <div id="contactFormStatus" class="contact-note" role="status" aria-live="polite"></div>
             <button type="submit" class="btn btn-brand btn-lg btn-full">送信する</button>
           </form>
         </div>

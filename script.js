@@ -46,24 +46,73 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Contact form (placeholder - sends to store email)
-  const form = document.getElementById('contactForm');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = form.querySelector('#name').value;
-      const phone = form.querySelector('#phone').value;
-      const email = form.querySelector('#email').value;
-      const message = form.querySelector('#message').value;
+  function normalizePhoneInput(value) {
+    return (value || '')
+      .normalize('NFKC')
+      .replace(/[^\d]/g, '')
+      .slice(0, 11);
+  }
 
-      const subject = encodeURIComponent('【HP問い合わせ】' + name + '様');
-      const body = encodeURIComponent(
-        'お名前: ' + name + '\n' +
-        'お電話: ' + phone + '\n' +
-        'メール: ' + email + '\n' +
-        '内容:\n' + message
-      );
-      window.location.href = 'mailto:nishinomiya-shukugawa2@kaitoridaikichi.jp?subject=' + subject + '&body=' + body;
+  // Contact form → REVORA public inquiry
+  const form = document.getElementById('contactForm');
+  const formStatus = document.getElementById('contactFormStatus');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const lastName = form.querySelector('#lastName').value.trim();
+      const firstName = form.querySelector('#firstName').value.trim();
+      const phone = normalizePhoneInput(form.querySelector('#phone').value);
+      const email = form.querySelector('#email').value.trim();
+      const message = form.querySelector('#message').value.trim();
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      if (formStatus) {
+        formStatus.textContent = '';
+        formStatus.style.color = '';
+      }
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = '送信中...';
+      }
+
+      try {
+        const response = await fetch('https://reserve-daikichi.elmship.com/api/public/inquiries', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: [lastName, firstName].filter(Boolean).join(' '),
+            phone,
+            email: email || null,
+            message: message || null,
+            storeSlug: 'nishinomiya-shukugawa2',
+            source: 'daikichi_public_contact',
+          }),
+        });
+
+        const payload = await response.json().catch(() => ({ ok: false }));
+        if (!response.ok || !payload.ok) {
+          throw new Error(payload.error || 'お問い合わせの送信に失敗しました。');
+        }
+
+        form.reset();
+        if (formStatus) {
+          formStatus.textContent = 'お問い合わせを受け付けました。確認後、必要に応じて店舗からご連絡いたします。';
+          formStatus.style.color = '#146c43';
+        }
+      } catch (error) {
+        if (formStatus) {
+          formStatus.textContent = error instanceof Error ? error.message : '送信に失敗しました。お手数ですがお電話でご連絡ください。';
+          formStatus.style.color = '#b42318';
+        }
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = '送信する';
+        }
+      }
     });
   }
 
