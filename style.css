@@ -1362,6 +1362,32 @@ img {
   resize: vertical;
 }
 
+.form-group-consent {
+  margin-top: -4px;
+}
+
+.consent-check {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0;
+}
+
+.consent-check input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex: 0 0 18px;
+}
+
+.consent-check a {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
 /* ===========================
    FOOTER
    =========================== */

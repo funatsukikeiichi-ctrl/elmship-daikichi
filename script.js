@@ -59,6 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
       const lastName = form.querySelector('#lastName').value.trim();
       const firstName = form.querySelector('#firstName').value.trim();
       const phone = normalizePhoneInput(form.querySelector('#phone').value);
